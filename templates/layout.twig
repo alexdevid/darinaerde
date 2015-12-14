@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="/libs/fontello/css/fontello.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<nav>
+    <div class="container">
+        <div class="logo">
+            <a href="{{ urlFor('index') }}">darina erde</a>
+        </div>
+        <ul class="navigation">
+            <li><a href="{{ urlFor('index') }}#" class="nav-about">Обо мне</a></li>
+            <li><a href="{{ urlFor('index') }}#portfolio">Работы</a></li>
+            <li><a href="#footer">Связь</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</nav>
+{% if indexPage is defined %}
+    <header>
+        <div class="container">
+            <div class="hero-header text-center">
+                <div class="hero-header-title">{{ Group.name }}</div>
+                <div class="hero-header-subtitle">{{ Group.status }}</div>
+                <div class="hero-header-description">{{ Group.description | raw }}</div>
+            </div>
+        </div>
+    </header>
+{% endif %}
+<div id="portfolio"></div>
+<main class="portfolio {% if indexPage is defined %}portfolio-index{% endif %}">
+    <div class="container">
+        {% block main %}
+        {% endblock %}
+    </div>
+    <footer id="footer">
+        <div class="container">
+            <ul class="footer-links">
+                <li class="footer-title">Контакты</li>
+                <li><i class="icon-location"></i> {{ Group.place }}</li>
+                {% for contact in Group.Contacts %}
+                    <li><i class="icon-{{ contact.type }}"></i>
+                        {% if contact.link is defined %}
+                            <a href="{{ contact.link }}">{{ contact.value }}</a>
+                        {% else %}
+                            {{ contact.value }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="vk-group">
+                <div class="footer-title">Сообщество</div>
+                <div id="vk_groups"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="footer-copyright">&copy; {{ "now"|date("Y") }} Darina Erde</div>
+        </div>
+    </footer>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/scripts/jquery.swipe.js"></script>
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?121"></script>
+<script type="text/javascript">
+    VK.Widgets.Group("vk_groups", {
+        mode: 0,
+        width: "350",
+        height: "150",
+        color1: '333333',
+        color2: 'cccccc',
+        color3: '262626'
+    }, {{ Group.id }});
+</script>
+<script src="/scripts/gallery.js"></script>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

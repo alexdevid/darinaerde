@@ -1,0 +1,26 @@
+{% extends "layout.twig" %}
+{% block main %}
+    <div class="portfolio-image">
+        <div class="portfolio-item-container">
+            <a href="{{ urlFor('album', {"album": Image.albumId}) }}" class="portfolio-image-close">✖</a>
+            <a class="portfolio-image-controls portfolio-image-prev"
+               href="{{ urlFor('image', {"album": Prev.albumId, "image": Prev.id}) }}" title="Предыдущая"></a>
+            <a class="portfolio-image-full" href="{{ urlFor('image', {"album": Next.albumId, "image": Next.id}) }}">
+                <img src="{{ Image.srcBig }}" alt="{{ Image.id }}" title="{{ Image.text }}">
+            </a>
+            <a class="portfolio-image-controls portfolio-image-next"
+               href="{{ urlFor('image', {"album": Next.albumId, "image": Next.id}) }}" title="Следующая"></a>
+        </div>
+        <div class="portfolio-item-info">
+            {{ Image.text }}
+            <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,whatsapp"></div>
+            <br>
+            <a href="{{ Image.OriginalSrc }}" target="_blank" class="portfolio-item-original">Открыть оригинал</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
+{% endblock %}

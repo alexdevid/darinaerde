@@ -1,0 +1,12 @@
+{% extends "layout.twig" %}
+{% block main %}
+    <div class="portfolio-item-container">
+        {% for Image in Images %}
+            <a class="portfolio-item"
+               href="{{ urlFor('image', {"album": Image.albumId, 'image': Image.id}) }}">
+                <img src="{{ Image.srcBig }}" alt="{{ Image.id }}" title="{{ Image.text }}">
+            </a>
+        {% endfor %}
+    </div>
+    <div class="clear"></div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.twig" %}
+{% block main %}
+    <div class="portfolio-title">
+        <h2>Мои работы</h2>
+    </div>
+    <div class="portfolio-categories">
+        {% for Album in Albums %}
+            <a href="{{ urlFor('album', {'album': Album.id}) }}" class="portfolio-category">
+                <img src="{{ Album.Thumbnail.srcBig }}" alt="{{ Album.title }}" title="{{ Album.title }}">
+                <span class="portfolio-category-info">
+                    <span class="portfolio-category-title">
+                        {{ Album.title }}
+                    </span>
+                    <span class="portfolio-category-description">
+                        {{ Album.description }}
+                    </span>
+                </span>
+            </a>
+        {% endfor %}
+    </div>
+    <div class="clear"></div>
+{% endblock %}
