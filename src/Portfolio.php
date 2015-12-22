@@ -48,6 +48,7 @@ class Portfolio {
         $this->storage = new \Storage\Storage(new \Predis\Client($config['redis']));
         $group = $this->storage->getById(new \Model\Group(), -$config['vk']['owner_id']);
         $this->slim->view()->appendData(['Group' => $group]);
+        $this->slim->view()->appendData(['Meta' => $this->getMetaData($config['meta'])]);
     }
 
     public function run() {
@@ -67,6 +68,15 @@ class Portfolio {
             $controller->imageAction($album, $image);
         })->name('image');
         $this->slim->run();
+    }
+
+    private function getMetaData(array $data) {
+        return [
+            'title' => $data['title'],
+            'keywords' => $data['keywords'],
+            'description' => $data['description'],
+            'canonical' => ''
+        ];
     }
 
     /**
